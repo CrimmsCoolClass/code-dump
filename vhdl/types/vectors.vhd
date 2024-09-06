@@ -20,8 +20,4 @@ begin
     operatevec <= vec1 xor vec2; --operate on each bit of vector
     single1 <= and vec1; -- same as vec1(0) and vec1(1) and vec1(2)
     indexvec <= (8|7 =>'1', 3 to 5 => 'Z', others => '0'); -- "110ZZZ000"
-    --index(0 and 2) = vec2(2)
-    --index(3 to 5) = vec1(3)
-    --rest are '0'
-
 end architecture;
