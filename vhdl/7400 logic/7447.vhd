@@ -1,16 +1,16 @@
-library ieee; --NOT COMPLETE
+library ieee;
 use ieee.std_logic_1164.all;
 --https://www.ti.com/lit/ds/symlink/sn54ls47.pdf?ts=1725817341418&ref_url=https%253A%252F%252Fwww.google.com%252F
-entity integratedcircuit is
+entity showoff is
     port(
         binary: in std_logic_vector(3 downto 0);
         LT, RBI: in std_logic;
         segs: out std_logic_vector(6 downto 0);
-        BIRBO: in std_logic
+        BIRBO: inout std_logic
     );
 end entity;
 
-architecture rtl of integratedcircuit is
+architecture rtl of showoff is
     signal temp_segs: std_logic_vector(6 downto 0);
 
     function to_ssdca(input: std_logic_vector) return std_logic_vector is
@@ -40,5 +40,6 @@ begin
     segs <= (others => '1') when BIRBO = '0' else 
             (others => '1') when binary = "0000" and RBI = '0' and LT = '1' else 
             (others => '0') when LT = '1' and BIRBO = '1' else temp_segs;
+    BIRBO <= '0' when binary = "0000" and RBI = '0' and LT = '1' else 'Z';
     
 end architecture;
